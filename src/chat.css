@@ -1,0 +1,49 @@
+/* Container for the button to control its position */
+.chatbot-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000; /* Ensures the button is on top of other content */
+}
+
+/* Styling for the button */
+.chatbot-btn {
+  width: 60px;
+  height: 60px;
+  background-color: #007bff; /* Main brand blue */
+  color: #fff; /* White icon color */
+  border: none;
+  border-radius: 50%; /* Makes it a perfect circle */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chatbot-btn:hover {
+  transform: scale(1.1); /* Slightly enlarges the button on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.chatbot-icon {
+  font-size: 1.5rem;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .chatbot-container {
+    bottom: 1rem;
+    right: 1rem;
+  }
+  
+  .chatbot-btn {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .chatbot-icon {
+    font-size: 1.3rem;
+  }
+}

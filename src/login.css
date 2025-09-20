@@ -1,0 +1,88 @@
+/* login.css */
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* full viewport height */
+  background: #f5f9ff; /* light background */
+}
+
+/* Card container */
+.auth-container {
+  max-width: 400px;
+  width: 100%;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.auth-container h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #004aad;
+}
+
+.auth-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.auth-container input {
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.3s;
+}
+
+.auth-container input:focus {
+  border-color: #004aad;
+}
+
+.auth-container button {
+  background: #004aad;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.auth-container button:hover {
+  background: #003080;
+}
+
+/* Toggle link */
+.auth-container p {
+  margin-top: 15px;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.toggle-link {
+  color: #ff4d4d;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 5px;
+  transition: color 0.3s;
+}
+
+.toggle-link:hover {
+  color: #cc0000;
+}
+
+.message {
+  color: red;
+}
