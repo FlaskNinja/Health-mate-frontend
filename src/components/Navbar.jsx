@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import "../navbar.css";
+import "../nav.css";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,3 +30,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
