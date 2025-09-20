@@ -1,33 +1,30 @@
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
 import "../nav.css";
+import { Link } from "react-router-dom";
 
-const Navbar = () => {
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <nav className="navbar">
       <div className="nav-container">
-        <h1 className="logo">HealthMate</h1>
+        {/* Left side - logo */}
+        <div className="logo">HealthMate</div>
 
-        <button
-          className="menu-toggle"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle menu"
-        >
-          {isOpen ? <X /> : <Menu />}
-        </button>
+        {/* Hamburger button */}
+        <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
+          ☰
+        </div>
 
-        <ul className={`nav-links ${isOpen ? "active" : ""}`}>
-          <li><a href="/">Home</a></li>
-          <li><a href="/#features">Features</a></li>
-          <li><a href="/#about">About</a></li>
-          <li><a href="/login">Login</a></li>
+        {/* Links */}
+        <ul className={`nav-links ${isOpen ? "open" : ""}`}>
+          <li><Link to="/" onClick={() => setIsOpen(false)}>Home</Link></li>
+          <li><Link to="/signup" onClick={() => setIsOpen(false)}>Register</Link></li>
+          <li><Link to="/login" onClick={() => setIsOpen(false)}>Login</Link></li>
+          <li><Link to="/" onClick={() => setIsOpen(false)}>Maps</Link></li>
+          <li><Link to="/" onClick={() => setIsOpen(false)}>Chatbot</Link></li>
         </ul>
       </div>
     </nav>
   );
-};
-
-export default Navbar;
-
+}
