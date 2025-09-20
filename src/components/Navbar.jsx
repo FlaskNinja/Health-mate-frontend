@@ -1,38 +1,32 @@
 import { useState } from "react";
-import { Link } from 'react-router-dom';
-import "../nav.css";
-import heroImg from "../img/logo.png";
+import { Menu, X } from "lucide-react";
+import "../navbar.css";
 
-export default function Navbar() {
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
     <nav className="navbar">
-      <div className="navbar-container">
-        {/* Logo */}
-        <div className="nav-logo">
-        <img src={heroImg} alt="" />
-        <Link to="/" className="logo">
-          HealthMate
-        </Link>
-        </div>
+      <div className="nav-container">
+        <h1 className="logo">HealthMate</h1>
 
-        {/* Desktop Menu */}
-        <div className={`nav-as ${isOpen ? "active" : ""}`}>
-          <Link to="/" onClick={toggleMenu}>Home</Link>
-          <Link to="/chatbot" onClick={toggleMenu}>Chatbot</Link>
-          <Link to="/hotlines" onClick={toggleMenu}>Hotlines</Link>
-          <Link to="/register" className="btn-primary" onClick={toggleMenu}>Register</Link>
-          <Link to="/login" className="btn-outline" onClick={toggleMenu}>Login</Link>
-        </div>
-
-        {/* Mobile Menu Button */}
-        <button className="menu-toggle" onClick={toggleMenu}>
-          {isOpen ? "✖" : "☰"}
+        <button
+          className="menu-toggle"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle menu"
+        >
+          {isOpen ? <X /> : <Menu />}
         </button>
+
+        <ul className={`nav-links ${isOpen ? "active" : ""}`}>
+          <li><a href="/">Home</a></li>
+          <li><a href="/#features">Features</a></li>
+          <li><a href="/#about">About</a></li>
+          <li><a href="/login">Login</a></li>
+        </ul>
       </div>
     </nav>
   );
-}
+};
+
+export default Navbar;
