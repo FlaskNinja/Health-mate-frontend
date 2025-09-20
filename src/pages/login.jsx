@@ -171,8 +171,8 @@ function Login() {
     try {
       let url =
         signState === "signup"
-          ? "http://localhost:1000/api/signup"
-          : "http://localhost:1000/api/login";
+          ? `${import.meta.env.VITE_API_URL}/api/signup`
+          : `${import.meta.env.VITE_API_URL}/api/login`;
 
       const res = await fetch(url, {
         method: "POST",
@@ -289,4 +289,5 @@ function Login() {
 }
 
 export default Login;
+
 
