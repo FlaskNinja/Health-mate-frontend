@@ -171,8 +171,8 @@ function Login() {
     try {
       let url =
         signState === "signup"
-          ? "http://localhost:3000/api/signup"
-          : "http://localhost:3000/api/login";
+          ? "http://localhost:1000/api/signup"
+          : "http://localhost:1000/api/login";
 
       const res = await fetch(url, {
         method: "POST",
@@ -289,3 +289,4 @@ function Login() {
 }
 
 export default Login;
+
