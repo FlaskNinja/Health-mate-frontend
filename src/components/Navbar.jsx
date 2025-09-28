@@ -19,13 +19,12 @@ export default function Navbar() {
         {/* Links */}
         <ul className={`nav-links ${isOpen ? "open" : ""}`}>
           <li><Link to="/" onClick={() => setIsOpen(false)}>Home</Link></li>
-          <li><Link to="/register" onClick={() => setIsOpen(false)}>Register</Link></li>
-          <li><Link to="/login" onClick={() => setIsOpen(false)}>Login</Link></li>
           <li><Link to="/" onClick={() => setIsOpen(false)}>Maps</Link></li>
-          <li><Link to="/" onClick={() => setIsOpen(false)}>Chatbot</Link></li>
+          <li><Link to="/chatbot" onClick={() => setIsOpen(false)}>Chatbot</Link></li>
+          <li><Link to="/signup" onClick={() => setIsOpen(false)}>Register</Link></li>
+          <li><Link to="/login" onClick={() => setIsOpen(false)}>Login</Link></li>
         </ul>
       </div>
     </nav>
   );
 }
-
