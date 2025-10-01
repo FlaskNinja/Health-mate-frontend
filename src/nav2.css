@@ -1,0 +1,104 @@
+/* General Navbar */
+.navbar {
+  background: #ffffff; /* White background */
+  color: #333; /* Dark text */
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid #ddd; /* subtle separator */
+}
+
+/* Container */
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo */
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #0d6efd;
+  cursor: pointer;
+}
+
+/* Hamburger */
+.hamburger {
+  font-size: 1.8rem;
+  cursor: pointer;
+  display: none;
+  color: #333;
+}
+
+/* Links (desktop view) */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #333; /* Dark text */
+  font-size: 1rem;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: background 0.3s ease-in-out;
+}
+
+.nav-links li a:hover {
+  background: rgba(13, 110, 253, 0.1);
+  color: #0d6efd;
+}
+
+/* Mobile view */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+.nav-links {
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  background: #ffffff;
+  flex-direction: column;
+  width: 220px;
+  max-height: 70vh;   /* take up to 70% of screen height */
+  overflow-y: auto;   /* scroll vertically if content exceeds height */
+  opacity: 0;
+  pointer-events: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-links.open {
+  opacity: 1;
+  pointer-events: auto;
+  padding: 10px 0;
+}
+  .nav-links li {
+    text-align: left;
+    padding: 12px 20px;
+  }
+
+  .nav-links li a {
+    display: block;
+    width: 100%;
+    color: #333;
+    font-size: 1.1rem;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out, transform 0.2s;
+  }
+
+  .nav-links li a:hover {
+    background: rgba(13, 110, 253, 0.1);
+    color: #0d6efd;
+    transform: translateX(5px);
+  }
+}
