@@ -5,6 +5,7 @@ import Login from "./pages/login";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
+import ChatBot from "./pages/Chatbot";
 
 
 function App() {
