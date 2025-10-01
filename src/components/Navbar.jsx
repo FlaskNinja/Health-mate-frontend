@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../nav.css";
+import "../nav2.css";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
@@ -28,3 +28,4 @@ export default function Navbar() {
     </nav>
   );
 }
+
