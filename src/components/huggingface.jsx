@@ -1,8 +1,6 @@
 // groq.js (symptom analysis)
 export async function getGroqReply(userMessage) {
-  const HF_API_KEY =
-    import.meta.env.VITE_GROQ_API_KEY ||
-    "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";
+  const HF_API_KEY = "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";
 
   const response = await fetch(
     "https://api.groq.com/openai/v1/chat/completions",
@@ -41,3 +39,4 @@ export async function getGroqReply(userMessage) {
 
   return data.choices[0].message.content;
 }
+
