@@ -5,6 +5,7 @@ import Login from "./pages/login";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
+import Chatbot from "./pages/Chatbox";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/chatbot" element={<Chatbot />} />
       </Routes>
     </BrowserRouter>
   )
