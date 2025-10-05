@@ -114,7 +114,8 @@ const Dashboard = () => {
               <h4>Check Symptoms</h4>
               <p className="incoming-text">Track how you feel today</p>
               {/* <button className="small-btn" onClick={() => handleFeatureClick("Check Symptoms")}> */}
-              <p className="small-btn"><Link to="/chatbot"}>Start Check</Link></p>
+              <p className="small-btn"><Link to="/chatbot">Start Check</Link></p>
+
               {/* </button> */}
             </div>
           </div>
@@ -221,6 +222,7 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
 
 
 
