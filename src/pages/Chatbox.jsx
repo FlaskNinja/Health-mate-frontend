@@ -3,7 +3,6 @@ import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../chat.css";
-import { getGroqReply } from "../components/huggingface";
 
 const Chatbot = () => {
   const storedUser = sessionStorage.getItem("user");
@@ -21,7 +20,13 @@ const Chatbot = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [symptoms, setSymptoms] = useState([""]);
   const [result, setResult] = useState("");
+  const [animatedResult, setAnimatedResult] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // Conversation memory (last 3 messages)
+  const [chatHistory, setChatHistory] = useState(
+    JSON.parse(sessionStorage.getItem("healthHistory") || "[]")
+  );
 
   const handleLogout = () => {
     sessionStorage.clear();
@@ -46,42 +51,81 @@ const Chatbot = () => {
     setSymptoms(symptoms.filter((_, i) => i !== index));
   };
 
+  // Typing animation
+  const typeText = (text, setter, speed = 25) => {
+    let index = 0;
+    setter("");
 
-const handleCheck = async () => {
-  const cleanSymptoms = symptoms.filter((s) => s.trim() !== "");
-  if (!cleanSymptoms.length) return;
+    return new Promise((resolve) => {
+      const interval = setInterval(() => {
+        setter((prev) => prev + text.charAt(index));
+        index++;
 
-  const userMessage = `Patient reports symptoms: ${cleanSymptoms.join(", ")}. 
-                       Provide a short, structured medical overview with sections:
-                       Quick Overview, Then evauate the user input and suggest the disease or sicknes the user is suffering from.
-                       Limit each section to 5-7 short sentences.`;
+        if (index >= text.length) {
+          clearInterval(interval);
+          resolve();
+        }
+      }, speed);
+    });
+  };
 
-  try {
-    setLoading(true);
-    setResult("Checking symptoms...");
+  // -----------------------------
+  //  AI CHECK USING ApiFreeLLM
+  // -----------------------------
+  const handleCheck = async () => {
+    const cleanSymptoms = symptoms.filter((s) => s.trim() !== "");
+    if (!cleanSymptoms.length) return;
 
-    const reply = await getGroqReply(userMessage);
+    const userEntry = {
+      role: "user",
+      content: `Symptoms: ${cleanSymptoms.join(", ")}`
+    };
 
-    // Clean markdown but keep section headings
-    const formattedReply = reply
-      // Remove bullets and extra symbols
-      .replace(/[*\-]/g, "")
-      // Keep section headings bold
-      .replace(/^(Quick Overview|Symptoms|When to See a Doctor|Tips)/gm, "")
-      // Collapse multiple empty lines
-      .replace(/\n{2,}/g, "\n")
-      .trim();
+    // Build context (last 3 interactions)
+    const lastContext = [...chatHistory, userEntry]
+      .slice(-3)
+      .map((m) => `${m.role === "user" ? "User" : "AI"}: ${m.content}`)
+      .join("\n");
 
-    setResult(formattedReply);
-    console.log("Formatted Groq reply:", formattedReply);
-  } catch (err) {
-    console.error(err);
-    setResult("Sorry, I couldn't process your symptoms. Try again later.");
-  } finally {
-    setLoading(false);
-  }
-};
+    const prompt = `
+${lastContext}
 
+Provide a concise structured patient, understandable overview:
+-  Overview
+- Evaluate symptoms
+- Suggest the most likely illness
+Each section must be 5–7 short sentences.
+`;
+
+    try {
+      setLoading(true);
+      setResult("...");
+      setAnimatedResult("");
+
+      const aiResponse = await window.apifree.chat(prompt);
+
+      const cleaned = aiResponse
+        .replace(/[*\-]/g, "")
+        .replace(/\n{2,}/g, "\n")
+        .trim();
+
+      const aiEntry = { role: "ai", content: cleaned };
+      const updatedHistory = [...chatHistory, userEntry, aiEntry];
+
+      setChatHistory(updatedHistory);
+      sessionStorage.setItem("healthHistory", JSON.stringify(updatedHistory));
+
+      await typeText(cleaned, setAnimatedResult, 20);
+      setResult(cleaned);
+
+    } catch (err) {
+      console.error(err);
+      setResult("Sorry, I couldn't process your symptoms. Try again later.");
+      setAnimatedResult("");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div>
@@ -100,7 +144,9 @@ const handleCheck = async () => {
           </div>
           <div className="navbar-right">
             <button className="dashboard-btn">Dashboard</button>
-            <div className="avatar">{user?.firstName ? user.firstName[0].toUpperCase() : "G"}</div>
+            <div className="avatar">
+              {user?.firstName ? user.firstName[0].toUpperCase() : "G"}
+            </div>
           </div>
         </div>
       </nav>
@@ -156,7 +202,9 @@ const handleCheck = async () => {
 
         {result && (
           <div className="result-box">
-            <p>{result}</p>
+            <p style={{ whiteSpace: "pre-line" }}>
+              {animatedResult || result}
+            </p>
           </div>
         )}
       </main>
@@ -165,6 +213,3 @@ const handleCheck = async () => {
 };
 
 export default Chatbot;
-
-
-
