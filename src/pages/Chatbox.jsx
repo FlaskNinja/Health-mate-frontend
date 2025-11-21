@@ -90,12 +90,23 @@ const Chatbot = () => {
     const prompt = `
 ${lastContext}
 
-Provide a concise structured patient, understandable overview:
--  Overview
-- Evaluate symptoms
-- Suggest the most likely illness
-Each section must be 5–7 short sentences.
+You are a health assistant for Nigerians.
+Give a very short and simple answer anyone can understand.
+Avoid big medical words. Use easy English like talking to a friend.
+
+Your response must follow this format:
+
+1. What it may be (1–2 short lines)
+2. Why (simple explanation)
+3. What the person should do now (quick steps)
+4. When to see a doctor (clear signs)
+
+Do NOT write long paragraphs.
+Do NOT repeat symptoms.
+Do NOT give more than 8 total lines.
+
 `;
+
 
     try {
       setLoading(true);
@@ -213,3 +224,4 @@ Each section must be 5–7 short sentences.
 };
 
 export default Chatbot;
+
